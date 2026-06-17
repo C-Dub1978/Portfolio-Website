@@ -1,0 +1,127 @@
+# Project Role and Architecture Instructions: Angular 21 Personal & Professional Portfolio
+
+You are an expert Frontend Engineer tasked with designing, writing, and scaffolding a highly polished, responsive portfolio website.
+
+# Documentation Rules
+<!-- - Before writing any Typescript Angular code, always read the system architecture and API references stored in the @/llm-documentation-refs/angular-llms.txt file.
+- When using primeNG components, always read the system architecture and component information stored in the @/llm-documentation-refs/primeng-llms.txt. -->
+
+## Critical Context Files
+You must read and strictly follow the guidelines inside these documentation files before modifying or writing code:
+- Check `instructions/project-spec.md` for overall architecture, project scope, and system goals.
+- Check `instructions/angular-rules.md` for all frontend coding standards, state management, and component patterns.
+
+## System Architecture Rules
+- Strict Separation: Keep business logic inside Angular Services (`.service.ts`). Components (`.component.ts`) must only handle presentation logic.
+- Micro-Frontends/Modules: Ensure all new features are contained within their own lazy-loaded feature modules. Do not pollute the shared or core modules.
+
+## Code Optimization Rules
+- Memory Management: Every RxJS subscription inside Angular components MUST be cleanly managed. Prefer using the `async` pipe in templates, or use `takeUntilDestroyed()` in the component class to avoid memory leaks.
+- Change Detection: Explicitly use `ChangeDetectionStrategy.OnPush` on all new Angular components to optimize rendering performance.
+- Bundle Sizes: Avoid importing entire large libraries (e.g., Lodash). Use specific, tree-shakable sub-imports.
+
+## Quality Assurance Gate
+- Pattern Matching: Before marking a task complete, read the structural patterns in the `/_examples` folder. Ensure your variable naming, error handling, and folder layout match exactly.
+- Execution Check: Use your terminal tool to run `npm run lint` or local test runners after making changes. Do not present code that introduces new compiler or linter warnings.
+
+## Automated Compilation & Testing Protocol
+You are required to verify all your changes locally in the terminal before marking a task complete. 
+1. **Compilation Validation**: Every time you modify or add typescript/angular files, you MUST immediately execute the compiler test using the terminal tool:
+   `npm run build` or `npx ng build --watch=false`
+2. **Error Recovery Loop**: If the terminal output reveals any linting, syntax, or compilation errors, you must:
+   - Read the exact terminal stack trace or error log.
+   - Refactor the code to address the specified error.
+   - Re-run the compilation command.
+   - Repeat this loop until the terminal returns an exit code of 0 (success).
+3. **Unit Testing (When Applicable)**: If you modify files with adjacent `.spec.ts` files, run the unit tests using:
+   `npm run test` or `npx ng test --watch=false`
+4. **Final Proof**: Do not ask the user for approval or signal completion until the codebase compiles flawlessly.
+
+## SCSS Typography Architecture
+- Ensure the Fontshare CDN link is injected into the root HTML/layout template: <link href="https://fontshare.com[]=clash-display@600,700&f[]=satoshi@500&f[]=switzer@400&display=swap" rel="stylesheet">
+- Define global CSS variables in the root SCSS file (e.g., `_variables.scss` or `main.scss`):
+  * `--font-heading: 'Clash Display', sans-serif;`
+  * `--font-ui: 'Satoshi', sans-serif;`
+  * `--font-body: 'Switzer', sans-serif;`
+- Enforce the following typographic layout styling rules via global typography classes or base elements:
+  * Headings (h1, h2, .font-heading): use `var(--font-heading)`, bold weight (600/700), tight letter-spacing (`-0.02em`).
+  * UI Elements (.nav-link, .btn, .tag): use `var(--font-ui)`, medium weight (500), tracking/letter-spacing (`0.05em`).
+  * Body text (p, .font-body): use `var(--font-body)`, regular weight (400), line-height `1.6`.
+
+### Design System & Theme Specification
+- **PrimeNG 21 Theming:** Leverage the updated PrimeNG v21 theming architecture (Styled Mode using Presets).
+- **Styling Constraint:** Strictly NO external CSS frameworks or utility libraries (e.g., Tailwind, Bootstrap). Everything must be handled via PrimeNG custom tokens and standard CSS properties.
+- **Theme Archetype:** Dual light/dark custom theme built utilizing PrimeNG's global configuration (`definePreset`).
+- **Light & Dark Contexts:** Scaffold fully switchable CSS-variable configurations for both a Light Theme and a Dark Theme.
+- **Graphic Overwrite Isolation:** Centralize theme variables and style variables inside `src/styles.scss` using canonical CSS Custom Properties. 
+
+## Design System & Theming (For Secondary AI Designer)
+- **Graphic Vectors & Icons:** Use standard PrimeIcons for core interactions. Provide empty placeholder markup blocks or descriptive SVG tags (`<svg>` elements with class structures) enabling a secondary design AI to effortlessly slot in bespoke vector graphics, graphics illustrations, and isolated icon sets.
+
+#### Theme Color Specifications
+
+##### Dark Mode Tokens:
+- **Text:** `#e1f9e0`
+- **Background:** `#050f05`
+- **Primary:** `#14ea04`
+- **Secondary:** `#f606f6`
+- **Accent:** `#2f43f9`
+
+##### Light Mode Tokens:
+- **Text:** `#050f05`
+- **Background:** `#fffdfe`
+- **Primary:** `#0dfb05`
+- **Secondary:** `#9ae0c1`
+- **Accent:** `#64cfb6`
+
+#### Gradient Specifications
+The agent must declare and register these global gradient custom properties inside the theme surface definition so they change automatically based on the theme context:
+- `--linearPrimarySecondary`: linear-gradient(primary, secondary)
+- `--linearPrimaryAccent`: linear-gradient(primary, accent)
+- `--linearSecondaryAccent`: linear-gradient(secondary, accent)
+- `--radialPrimarySecondary`: radial-gradient(primary, secondary)
+- `--radialPrimaryAccent`: radial-gradient(primary, accent)
+- `--radialSecondaryAccent`: radial-gradient(secondary, accent)
+
+### Implementation Requirements
+1. Construct a comprehensive `definePreset` extending a baseline theme like `Aura`.
+2. Map semantic definitions (`text`, `background`, `primary`, `surface`) explicitly for both light and dark blocks.
+3. Bind the active color scheme selection to standard document class changes (e.g., toggling `.p-dark`).
+
+## Reference Materials
+- A set of code examples is located in the `/_examples` folder. Use these files as a visual blueprint and structural pattern reference for how code in this repository should be styled and constructed. Do not modify files inside `/_examples`.
+
+### Storybook Configuration Rules
+- **Global Styles Integration:** Ensure `.storybook/preview.ts` imports the main global stylesheet (`src/styles.css` or `src/styles.scss`) so gradients are available to all stories.
+- **PrimeNG Provider:** Wrap all stories globally with `providePrimeNG` and `provideAnimationsAsync` using the custom theme preset created in `app.config.ts`.
+- **Dark Mode Toolbar:** Configure Storybook's background/theme addon to toggle the `.p-dark` class on the `.p-story` or `body` element inside the iframe.
+
+### Environment Setup Rules
+- **Prerequisite:** The agent is fully responsible for initializing the workspace and installing dependencies.
+- **Angular Setup:** Install Angular CLI v21 (or use `npx @angular/cli@21`) and generate a clean workspace if one does not exist.
+- **PrimeNG Setup:** Install `primeng` and `@primeuix/themes` strictly at version 21. Do NOT install Tailwind CSS or other UI libraries.
+- **Storybook Setup:** Initialize Storybook natively within the Angular workspace using `npx storybook@latest init`. Ensure it is configured to read the PrimeNG styles globally.
+- **Execution Order:** The agent must run all installation commands, verify successful builds, and then proceed with the `app.config.ts` and global style configurations.
+
+### Theme Toggle Implementation
+- Provide a responsive theme toggle mechanism using the `ThemeToggleComponent`.
+- The toggle must use Angular Signals to update the state reactively.
+- The component must add or remove the `.p-dark` class on the `document.documentElement` root to trigger PrimeNG 21's internal CSS variable swaps.
+- Style the button using the custom `--linearPrimarySecondary` gradient token.
+
+## Workflow Process
+1. **Plan Phase**: Analyze the request, reference the rules files, map the dependencies, and state your architectural strategy. Wait for approval.
+2. **Act Phase**: Write modular, clean code utilizing your terminal tools. Test your changes locally before finalizing the task.
+
+### Step-by-Step Initialization Sequence
+The agent must execute these steps sequentially before generating any user interface components:
+1. **Step 1: Application Architecture (`app.config.ts`)**
+   - Locate or create `src/app/app.config.ts`.
+   - Implement the `definePreset(Aura, { ... })` function with the specified Light and Dark theme object tokens.
+   - Register `providePrimeNG` inside the `providers` array.
+   - Configure `options: { darkModeSelector: '.p-dark' }` inside the PrimeNG setup.
+
+2. **Step 2: Global Gradient Injection (`styles.css` or `styles.scss`)**
+   - Locate the primary global stylesheet (`src/styles.css` or `src/styles.scss`).
+   - Append the custom `:root` block for Light Mode gradients and the `.p-dark` block for Dark Mode gradients.
+   - Ensure the variables utilize the custom secondary and accent colors as specified.
