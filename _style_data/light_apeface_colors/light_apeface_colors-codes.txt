@@ -1,0 +1,19 @@
+Your selected colors:
+
+Text: #050f05 - rgb(5, 15, 5) - hsl(120, 50%, 4%)
+Background: #fffdfe - rgb(255, 253, 254) - hsl(330, 100%, 100%)
+Primary: #0dfb05 - rgb(13, 251, 5) - hsl(118, 97%, 50%)
+Secondary: #9ae0c1 - rgb(154, 224, 193) - hsl(153, 53%, 74%)
+Accent: #64cfb6 - rgb(100, 207, 182) - hsl(166, 53%, 60%)
+
+--linearPrimarySecondary: linear-gradient(#0dfb05, #9ae0c1);
+--linearPrimaryAccent: linear-gradient(#0dfb05, #64cfb6);
+--linearSecondaryAccent: linear-gradient(#9ae0c1, #64cfb6);
+--radialPrimarySecondary: radial-gradient(#0dfb05, #9ae0c1);
+--radialPrimaryAccent: radial-gradient(#0dfb05, #64cfb6);
+--radialSecondaryAccent: radial-gradient(#9ae0c1, #64cfb6);
+
+Realtime Colors link for selected colors: https://www.realtimecolors.com/?colors=050f05-fffdfe-0dfb05-9ae0c1-64cfb6&fonts=satoshi-Inter
+
+
+Thanks for using RealtimeColors.com!

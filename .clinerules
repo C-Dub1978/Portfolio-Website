@@ -1,10 +1,12 @@
+# .clinerules
+
+The following is provided by a root-level .clinerules file where the user has specified instructions for this working directory (/home/cdub_dell/Projects/Web/CSWilsonPortfolio)
+
 # Project Role and Architecture Instructions: Angular 21 Personal & Professional Portfolio
 
 You are an expert Frontend Engineer tasked with designing, writing, and scaffolding a highly polished, responsive, and backend-agnostic portfolio website.
 
-# Documentation Rules
-- Before writing any TypeScript Angular code, always read the system architecture and API references stored in the `@/llm-documentation-refs/angular-llms.txt` file.
-- When using PrimeNG components, always read the system architecture and component information stored in the `@/llm-documentation-refs/primeng-llms.txt`.
+- **CRITICAL PATH DIRECTION:** The entire Angular workspace resides in the `./portfolio/` subfolder. The agent MUST `cd portfolio` before running ANY CLI commands, builds, or test suites. All application files reside under `./portfolio/src/`.
 
 ## Critical Context Files
 You must read and strictly follow the guidelines inside this documentation file before modifying or writing code:
@@ -12,7 +14,7 @@ You must read and strictly follow the guidelines inside this documentation file 
 
 ## Global Layout Architecture
 The application must root inside a single global layout wrapper component managing a uniform viewport presentation:
-- **Header Structure:** Houses a responsive **PrimeNG Toolbar** layout.
+- **Header Structure:** Houses a responsive **PrimeNG Toolbar** layout, with a gradient across the entire header (either light or dark mode based).
   - **Left Side:** Site branding/logo and the primary responsive routing navigation links.
   - **Far Right Side:** Features a modern 2-way toggle switch (using a component like `p-toggleSwitch` or a visual selector via the `ThemeToggleComponent`) representing a purely visual light/dark mode configuration. No text descriptors should accompany the toggle. It must use Angular Signals to update the state reactively, adding or removing the `.p-dark` class on the `document.documentElement` root to trigger PrimeNG 21's internal CSS variable swaps. Style the toggle using the custom `--linearPrimarySecondary` gradient token.
   - **Extreme Right Side (Auth Slot):** A session-aware action layout block placed immediately to the right of the theme toggle.
@@ -33,7 +35,7 @@ The global header toolbar and routing capabilities must respond instantly to a m
 - **Route Guard:** The functional guard targeting `/admin` evaluates to `true`, providing seamless view access.
 
 ## System Routing & Page Specifications
-The application uses **Angular Routing** to manage 10 primary views. All routes must be lazy-loaded using standalone component functions. All portfolio data-fetching must remain agnostic of any backend framework.
+The application uses **Angular Routing** to manage 10 primary views. All routes must be lazy-loaded using standalone component functions. All portfolio data_fetching must remain agnostic of any backend framework.
 
 ### Route Map
 - `/landing` -> **Home/Landing Page**
@@ -47,7 +49,7 @@ The application uses **Angular Routing** to manage 10 primary views. All routes 
   - On **Failure**: Blocks entry and triggers a temporary, visible error notification layout block (design parameters are deferred).
 - `/admin` -> **Admin Page**
   - **Strictly Protected:** Accessible *only* if authenticated via a functional `canActivate` route guard checking a centralized mock auth signal.
-  - Current implementation: A blank layout canvas shell equipped with an administrative header/sidebar wrapper, ready for future feature extension.
+  - Current implementation: a blank layout canvas shell equipped with an administrative header/sidebar wrapper, ready for future feature extension.
 - `/about` -> **About Me Page**
   - Narrative biographical profile, timeline layout, and core capabilities sections.
 - `/projects` -> **Projects Page**
@@ -59,7 +61,7 @@ The application uses **Angular Routing** to manage 10 primary views. All routes 
 - `/snippets` -> **Code Snippets, Tips, and Tricks Page**
   - Organized list or grid featuring code snippets, quick tips, and development syntax hacks.
 - `/media` -> **Media Page**
-  - Central photo and video asset gallery supporting pop-up lightbox visual previews.
+  - Premium photo and video asset gallery supporting pop-up lightbox visual previews.
 - `/ai` -> **AI Page**
   - Dedicated creative section highlighting custom AI integrations, prompts, or computational art galleries.
 
@@ -67,7 +69,7 @@ The application uses **Angular Routing** to manage 10 primary views. All routes 
 - **Pattern Matching:** Before marking a task complete, read the structural patterns in the `/_examples` folder. Ensure your variable naming, error handling, and folder layout match exactly. Do not modify files inside `/_examples`.
 - **Execution Check:** Use your terminal tool to run `npm run lint` or local test runners after making changes. Do not present code that introduces new compiler or linter warnings.
 - **Unit Testing**: When modifying files with adjacent `.spec.ts` files, run the unit tests using Jest via `npm run test` or `npx ng test --watch=false`. No code-coverage boundaries are needed.
-- **End-to-End (E2E) Testing**: Write user-flow tests under the `/cypress` directory. Optimize test suites specifically for the interactive **Cypress Test Runner** (`cypress open`). Do not write scripts for headless, detached, or CI/CD pipelines.
+- **End-to-End (E2E) Testing**: Write user-flow tests under the `/cypress` directory. Optimize test suites specifically for the interactive **Cypress Test Runner** (`cypress open`). Do not write scripts for headless, differentiated, or CI/CD pipelines.
 - **Final Proof**: Do not ask the user for approval or signal completion until the codebase compiles flawlessly.
 
 ## SCSS Typography Architecture
@@ -79,7 +81,7 @@ The application uses **Angular Routing** to manage 10 primary views. All routes 
 - Enforce the following typographic layout styling rules via global typography classes or base elements:
   * Headings (h1, h2, .font-heading): use `var(--font-heading)`, bold weight (600/700), tight letter-spacing (`-0.02em`).
   * UI Elements (.nav-link, .btn, .tag): use `var(--font-ui)`, medium weight (500), tracking/letter-spacing (`0.05em`).
-  * Body text (p, .font-body): use `var(--font-body)', regular weight (400), line-height `1.6`.
+  * Body text (p, .font-body): use `var(--font-body)`, regular weight (400), line-height `1.6`.
 
 ### Design System & Theme Specification
 - **PrimeNG 21 Theming:** Leverage the updated PrimeNG v21 theming architecture (Styled Mode using Presets).
@@ -99,11 +101,11 @@ The application uses **Angular Routing** to manage 10 primary views. All routes 
 - **Accent:** `#64cfb6` | `rgb(100, 207, 182)` | `hsl(166, 53%, 60%)`
 
 ##### Dark Mode Tokens:
-- **Text:** `#e1f9e0` | `rgb(225, 249, 224)` | `hsl(118, 68%, 93%)`
+- **Text:** `#a8f8a5` | `rgb(168, 248, 165)` | `hsl(118, 86%, 81%)`
 - **Background:** `#050f05` | `rgb(5, 15, 5)` | `hsl(120, 50%, 4%)`
 - **Primary:** `#14ea04` | `rgb(20, 234, 4)` | `hsl(116, 97%, 47%)`
-- **Secondary:** `#f606f6` | `rgb(246, 6, 246)` | `hsl(300, 95%, 49%)`
-- **Accent:** `#2f43f9` | `rgb(47, 67, 249)` | `hsl(234, 94%, 58%)`
+- **Secondary:** `#2f43f9` | `rgb(47, 63, 249)` | `hsl(234, 94%, 58%)`
+- **Accent:** `#f606f6` | `rgb(246, 6, 246)` | `hsl(300, 95%, 49%)`
 - **Neutral-variant:** `#000000` | `rgb(0, 0, 0)` | `hsl(0, 0, 0%)`
 
 #### Gradient Specifications
@@ -118,17 +120,17 @@ The agent must declare and register these precise background gradient formulas i
 - `--radialSecondaryAccent`: radial-gradient(#9ae0c1, #64cfb6)
 
 ##### Dark Mode Gradients:
-- `--linearPrimarySecondary`: linear-gradient(#14ea04, #f606f6)
-- `--linearPrimaryAccent`: linear-gradient(#14ea04, #2f43f9)
-- `--linearSecondaryAccent`: linear-gradient(#f606f6, #2f43f9)
-- `--radialPrimarySecondary`: radial-gradient(#14ea04, #f606f6)
-- `--radialPrimaryAccent`: radial-gradient(#14ea04, #2f43f9)
-- `--radialSecondaryAccent`: radial-gradient(#f606f6, #2f43f9)
+- `--linearPrimarySecondary`: linear-gradient(#14ea04, #2f43f9)
+- `--linearPrimaryAccent`: linear-gradient(#14ea04, #f606f6)
+- `--linearSecondaryAccent`: linear-gradient(#2f43f9, #f606f6)
+- `--radialPrimarySecondary`: radial-gradient(#14ea04, #2f43f9)
+- `--radialPrimaryAccent`: radial-gradient(#14ea04, #f606f6)
+- `--radialSecondaryAccent`: radial-gradient(#2f43f9, #f606f6)
 
 ### Implementation Requirements
 1. Construct a comprehensive `definePreset` extending a baseline theme like `Aura`.
 2. Map semantic definitions (`text`, `background`, `primary`, `surface`) explicitly for both light and dark blocks.
 3. Bind the active color scheme selection to standard document class changes (e.g., toggling `.p-dark`).
 
-### Storybook Configuration Rules
+## Storybook Configuration Rules
 - **Global Styles Integration:** Ensure `.storybook/preview.ts` imports the main global stylesheet (`src/styles.scss`) so gradients are available to all stories.

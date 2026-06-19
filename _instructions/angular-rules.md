@@ -5,7 +5,6 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - **Core Framework:** Angular v21 (Zoneless architecture, standalone by default)
 - **UI Engine:** PrimeNG v21 Styled Mode
 
-
 ## TypeScript Best Practices
 - Use strict type checking
 - Prefer type inference when the type is obvious
@@ -70,17 +69,15 @@ export class ProjectGridComponent {
 }
 ```
 
-## Component Architecture rules
+## 📂 Component Architecture rules
 - Keep components small and focused on a single responsibility.
 - Use `input()`, `output()`, and `model()` signal functions exclusively. Never use legacy decorators (`@Input`, `@Output`).
 - Prefer inline templates for small components (under 30 lines), external templates relative to the TS file for larger views.
 - Prefer Signal Forms (`@angular/forms/signals`) for forms where applicable, or fall back to native Reactive Forms. Never use template-driven forms.
 - Do NOT use `ngClass` or `ngStyle`; use standard modern native HTML attribute/class bindings instead.
 - **Dependency Injection:** Use the functional `inject()` function exclusively. Never use constructor injection.
-- **Route Guard Mapping:** Functional router guards checking the global `AuthSignalService` must read session parameters synchronously via signals.
-- When generating components, always use the smart (container) vs. dumb (presentational) component pattern. Strictly follow the implementation rules outlined in the [Smart vs. Presentation Components](#smart-vs-presentation-components) section below.
-- **Dependency Injection:** Use the functional `inject()` function exclusively. Never use constructor injection.
 - **Route Guard Mapping:** Functional router guards checking the global `AuthSignalService` must read session parameters synchronously via signals to dynamic header menu bars.
+- When generating components, always use the smart (container) vs. dumb (presentational) component pattern. Strictly follow the implementation rules outlined in the [Smart vs. Presentation Components](#smart-vs-presentation-components) section below.
 
 ```typescript
 // Functional Route Guard Example
